@@ -1,0 +1,104 @@
+{
+  "uri": "spotify:user:wildkyo",
+  "name": "midudev",
+  "image_url": "https://i.scdn.co/image/ab6775700000ee85447e82e7694df5b9a437f08d",
+  "followers_count": 606,
+  "following_count": 57,
+  "recently_played_artists": [
+      {
+          "uri": "spotify:artist:1KkjjsBwGqU2YjS9OIucZV",
+          "name": "Hyper Potions",
+          "image_url": "https://i.scdn.co/image/ab676161000051745ed8872fd3ba76d5949b6f98",
+          "followers_count": 114455
+      },
+      {
+          "uri": "spotify:artist:6GTRLqqiBPUqaOgyxOraHp",
+          "name": "StreamBeats by Harris Heller",
+          "image_url": "https://i.scdn.co/image/ab6761610000517438e420994289371cbbd0f8b3",
+          "followers_count": 33688
+      },
+      {
+          "uri": "spotify:artist:70yqWLuRMiIAt19vzytn7W",
+          "name": "Huggy Beats",
+          "image_url": "https://i.scdn.co/image/ab676161000051742d256c98f80d31180ec92a2c",
+          "followers_count": 339
+      }
+  ],
+  "public_playlists": [
+      {
+          "uri": "spotify:playlist:1pp3Qh62wV5853vDMvk89v",
+          "name": "MIDU TWITCH",
+          "image_url": "spotify:mosaic:ab67616d00001e0253408ca2ca4bf2b444e2f916:ab67616d00001e0279c55bd04ae7f2516a13565d:ab67616d00001e028808fd66bf07cb5250de8ec6:ab67616d00001e029786e97a478d553208c1bc4f",
+          "followers_count": 35
+      },
+      {
+          "uri": "spotify:playlist:4h9IFile4ykWQKRGgGPRMw",
+          "name": "música para programar 👨‍💻",
+          "image_url": "spotify:image:ab67706c0000da84b49d936a8156766c39511825",
+          "followers_count": 2767
+      },
+      {
+          "uri": "spotify:playlist:37i9dQZF1DWT7XSlwvR1ar",
+          "name": "Totally Stress Free",
+          "image_url": "https://i.scdn.co/image/ab67706f00000002b25e0e9cdd7e55a0ea3ff0e6",
+          "followers_count": 1925895,
+          "owner_name": "Spotify",
+          "owner_uri": "spotify:user:spotify"
+      },
+      {
+          "uri": "spotify:playlist:37i9dQZF1DZ06evO24zeso",
+          "name": "This Is Regina Spektor",
+          "image_url": "https://thisis-images.scdn.co/37i9dQZF1DZ06evO24zeso-default.jpg",
+          "followers_count": 45340,
+          "owner_name": "Spotify",
+          "owner_uri": "spotify:user:spotify"
+      },
+      {
+          "uri": "spotify:playlist:37i9dQZF1DWWxPM4nWdhyI",
+          "name": "This Is Ed Sheeran",
+          "image_url": "https://i.scdn.co/image/ab67706f000000020373b03502fba84b91dac8e8",
+          "followers_count": 5148971,
+          "owner_name": "Spotify",
+          "owner_uri": "spotify:user:spotify"
+      },
+      {
+          "uri": "spotify:playlist:0LGIgrzARVll5ZNJ1gJ21F",
+          "name": "Favoritos",
+          "image_url": "spotify:mosaic:ab67616d00001e020c19e4865e163b75e478fca2:ab67616d00001e022615a9ecaa5702fe6fbb4f0e:ab67616d00001e028b08b833afbde17bc78eacbe:ab67616d00001e02eb4a92e31d167a6866acde76",
+          "followers_count": 6
+      },
+      {
+          "uri": "spotify:playlist:37i9dQZF1DWXmlLSKkfdAk",
+          "name": "Acoustic Covers",
+          "image_url": "https://i.scdn.co/image/ab67706f00000002bd1b35b814a0a8829862c84b",
+          "followers_count": 3696677,
+          "owner_name": "Spotify",
+          "owner_uri": "spotify:user:spotify"
+      },
+      {
+          "uri": "spotify:playlist:37i9dQZF1DX3PFzdbtx1Us",
+          "name": "Music For Concentration",
+          "image_url": "https://i.scdn.co/image/ab67706f000000023466e2ac76e504f4131af598",
+          "followers_count": 1229618,
+          "owner_name": "Spotify",
+          "owner_uri": "spotify:user:spotify"
+      },
+      {
+          "uri": "spotify:playlist:1K9Lxa1YSDaNgjxb3vkIGT",
+          "name": "Los MEJORES soundtracks de VIDEOJUEGOS",
+          "image_url": "spotify:mosaic:ab67616d00001e02107b21ec016eedb6cbe9ebd9:ab67616d00001e023733c0a0d0a939d577bb97ca:ab67616d00001e0268e5e7cc9256ca8c0917a9dd:ab67616d00001e02d6d67c7f2e1978478d485a5e",
+          "followers_count": 907
+      },
+      {
+          "uri": "spotify:playlist:2H3an3bzIB2llR3Rfmgqhv",
+          "name": "Para tocar con la guitarra",
+          "image_url": "spotify:mosaic:ab67616d00001e025b476df4a77099cf93d61c96:ab67616d00001e026b9475687342dcbe15d01e01:ab67616d00001e029c5dcdd26f8f026ad81b369b:ab67616d00001e02d69cf05f88f77c29bf4edf82",
+          "followers_count": 5
+      }
+  ],
+  "total_public_playlists_count": 19,
+  "has_spotify_name": true,
+  "has_spotify_image": true,
+  "color": 8211250,
+  "user_created_show": []
+}
