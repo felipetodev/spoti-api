@@ -1,14 +1,16 @@
 import React, { useMemo } from "react";
-import { Container, Stack, Text } from "@chakra-ui/react";
+import { Box, Image, Container, Stack, Text } from "@chakra-ui/react";
 import Card from "../../components/Card";
 import CardShelf from "../../components/CardShelf";
-import mock from "../../crismjMock.json"
+import api from "../../search/api";
+import Link from "next/link";
 
 const SearchArtist: React.FC<any> = ({
   topResults,
   artists,
   artist,
   tracks,
+  users,
 }) => {
   const topArtists = useMemo(() => {
     let top5: any = [];
@@ -21,10 +23,69 @@ const SearchArtist: React.FC<any> = ({
     return top5;
   }, [artists]);
 
+  const isUser = false
+
   return (
     <Stack minHeight="full" w="full" pt={100}>
       <Container maxWidth="container.xxl" px={6}>
-        <CardShelf artist={artist} tracks={tracks} />
+        {isUser ? (
+          <Stack width="100%" maxWidth={420}>
+            <Text fontSize={24} fontWeight={700}>
+              Top Result
+            </Text>
+            <Link href={`/user/${users[0].data.id}`}>
+              <a>
+                <Stack
+                  as="a"
+                  py={4}
+                  px={4}
+                  position="relative"
+                  borderRadius="md"
+                  direction="column"
+                  justifyContent="space-between"
+                  backgroundColor="#181818"
+                >
+                  <Box
+                    mb={4}
+                    w="fit-content"
+                    borderRadius={9999}
+                    overflow="hidden"
+                  >
+                    <Image
+                      borderRadius={9999}
+                      objectFit="cover"
+                      h={24}
+                      w={24}
+                      alt={users[0]?.data?.displayName}
+                      src={users[0]?.data?.image?.largeImageUrl}
+                    />
+                  </Box>
+                  <Stack>
+                    <Text fontSize={30} fontWeight={700}>
+                      {users[0].data.displayName}
+                    </Text>
+                    <Text
+                      as="span"
+                      fontSize={14}
+                      fontWeight={600}
+                      lineHeight={1.5}
+                      letterSpacing={1}
+                      borderRadius={9999}
+                      px={3}
+                      py={0.5}
+                      backgroundColor="rgba(0,0,0,.2)"
+                      width="fit-content"
+                    >
+                      PROFILE
+                    </Text>
+                  </Stack>
+                </Stack>
+              </a>
+            </Link>
+          </Stack>
+        ) : (
+          <CardShelf artist={artist} tracks={tracks} />
+        )}
         <Text fontSize={24} fontWeight={700}>
           Featuring {artist?.profile?.name}
         </Text>
@@ -46,7 +107,7 @@ const SearchArtist: React.FC<any> = ({
         <Stack direction="row" gap={4}>
           {topArtists?.map((artist: any) => (
             <Card
-              key={artist?.profile.name}
+              key={artist?.uri}
               artist="Artist"
               owner={artist?.owner?.name}
               description={artist?.description}
@@ -63,32 +124,19 @@ const SearchArtist: React.FC<any> = ({
 
 export default SearchArtist;
 
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',
-		'X-RapidAPI-Key': 'fe520d1952msha780fd254332e9dp132072jsn9248e87bd799'
-	}
-};
-
-export async function getServerSideProps({ query }) {
-  // const res = await fetch(
-  //   `https://spotify23.p.rapidapi.com/search/?q=${query.artist}&type=multi&offset=0&limit=10&numberOfTopResults=5`,
-  //   options
-  // );
-  // const data = await res.json();
-
-  const artist = mock.artists.items[0].data;
-  const albums = mock.albums;
+export async function getServerSideProps({ query }: any) {
+  const res = await api.getGlobalSearch(query.artist);
+  const artist = res.artists.items[0]?.data ?? {};
+  const albums = res.albums;
 
   return {
     props: {
       artist,
-      artists: mock.artists.items,
+      artists: res.artists.items,
+      users: res.users.items,
       albums,
-      tracks: mock.tracks.items,
-      topResults: mock.topResults.featured,
-      data: [],
+      tracks: res.tracks.items,
+      topResults: res.topResults.featured,
     },
   };
 }
