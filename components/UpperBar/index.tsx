@@ -33,11 +33,12 @@ const UpperBar: React.FC<any> = ({ router }) => {
   const [inputField, setInputField] = useState(DEFAULT_STATE);
   const nextRouter = useRouter();
 
-  const handleInput = ({ target }) => {
+  const handleInput = ({ target }: any) => {
+    // @ts-ignore
     setInputField({ [target.name]: target.value });
   };
 
-  const onSubmitForm = (e) => {
+  const onSubmitForm = (e: any) => {
     e.preventDefault();
     nextRouter.push(`/search/${inputField.search}`);
   };
@@ -62,10 +63,9 @@ const UpperBar: React.FC<any> = ({ router }) => {
           {router?.state?.pathname.includes("/search") && (
             <FormControl as="form" onSubmit={onSubmitForm}>
               <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  children={<SearchIcon fill="#000" />}
-                />
+                <InputLeftElement pointerEvents="none">
+                  <SearchIcon fill="#000" />
+                </InputLeftElement>
                 <Input
                   name="search"
                   type="text"

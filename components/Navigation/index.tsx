@@ -12,7 +12,7 @@ import Link from "next/link";
 import { useUser } from "../../user/hooks";
 
 const Navigation: React.FC<any> = () => {
-  const { publicPlaylists } = useUser();
+  const { publicPlaylists }: any = useUser();
 
   return (
     <Stack position="relative" zIndex={50} minWidth={60} h="full" top={0}>
@@ -85,7 +85,7 @@ const Navigation: React.FC<any> = () => {
         </Stack>
         <Stack pb={2} borderBottom="1px solid #282828" />
         <Stack>
-          {publicPlaylists?.map((playlist) => (
+          {publicPlaylists?.map((playlist: any) => (
             <Link
               href={`/playlist/${playlist?.uri.split(":")[2]}`}
               key={playlist?.name}

@@ -5,8 +5,8 @@ import UserBanner from "../../components/UserBanner";
 import { TrackListRow } from "../../components/SearchTrackResults";
 import { usePlayer } from "../../player/hooks";
 
-const PlaylistPage: React.FC<any> = ({ asdf, data, playlist }) => {
-  const { trackData, updatePlayer, statusPlayer } = usePlayer();
+const PlaylistPage: React.FC<any> = ({ data, playlist }) => {
+  const { trackData, updatePlayer, statusPlayer }: any = usePlayer();
 
   const onPlayTrack = (track: any) => {
     updatePlayer(track.id);
@@ -49,7 +49,7 @@ const PlaylistPage: React.FC<any> = ({ asdf, data, playlist }) => {
           </Stack>
         </Stack>
 
-        {playlist?.map((track, idx) => (
+        {playlist?.map((track: any, idx: any) => (
           <TrackListRow
             isPlaylist
             key={track?.track?.id}
@@ -70,7 +70,7 @@ const PlaylistPage: React.FC<any> = ({ asdf, data, playlist }) => {
 
 export default PlaylistPage;
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ query }: any) {
   const playlistResponse = await api.getPlaylist(query.id);
   const trackResponse = await api.getPlaylistTrack(query.id);
 

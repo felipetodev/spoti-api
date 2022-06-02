@@ -1,7 +1,7 @@
 import { options } from "../utils";
 
 export default {
-  getUserProfile: async (userId) => {
+  getUserProfile: async (userId: any) => {
     try {
       if (!userId) return {};
       const response = await fetch(

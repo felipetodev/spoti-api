@@ -15,7 +15,7 @@ const UserBanner: React.FC<any> = ({
     totalPublicPlaylistsCount,
     followingCount,
     followersCount,
-  } = useUser();
+  }: any = useUser();
 
   const hasHeaderImage = artistData?.visuals?.headerImage?.sources[0]?.url;
   const hasHeaderColor =

@@ -1,7 +1,7 @@
 import { options } from "../utils";
 
 export default {
-  getTrack: async (trackId) => {
+  getTrack: async (trackId: any) => {
     if (!trackId) return {};
     try {
       const response = await fetch(

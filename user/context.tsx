@@ -11,7 +11,7 @@ const defaultValues = {
 
 const UserContext = React.createContext(defaultValues);
 
-const UserProvider = ({ children }) => {
+const UserProvider = ({ children }: any) => {
   const [userData, setUserData] = useState<any>({})
 
   const updateUser = (data: any) => {
@@ -28,7 +28,7 @@ const UserProvider = ({ children }) => {
     })
   }
 
-  const providerValue = useMemo(() => {
+  const providerValue: any = useMemo(() => {
     return {
       username: userData.name,
       userImage: userData.imageUrl,

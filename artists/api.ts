@@ -1,7 +1,7 @@
 import { options } from "../utils";
 
 export default {
-  getArtistOverview: async (artistId) => {
+  getArtistOverview: async (artistId: any) => {
     if (!artistId) return {};
     try {
       const response = await fetch(

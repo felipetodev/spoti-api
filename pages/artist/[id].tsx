@@ -19,7 +19,7 @@ const ArtistPage: React.FC<any> = ({ data }) => {
     return top5;
   }, [data]);
 
-  const { trackData, updatePlayer, statusPlayer } = usePlayer();
+  const { trackData, updatePlayer, statusPlayer }: any = usePlayer();
 
   const onPlayTrack = (trackId: any) => {
     updatePlayer(trackId);
@@ -30,7 +30,7 @@ const ArtistPage: React.FC<any> = ({ data }) => {
     <Stack w="full">
       <UserBanner artistData={data.artist} />
       <Stack px={6} pb={200}>
-        {topTracks.map((track, idx) => (
+        {topTracks.map((track: any, idx: any) => (
           <TrackListRow
             isPlaylist
             key={track?.id}
@@ -51,7 +51,7 @@ const ArtistPage: React.FC<any> = ({ data }) => {
 
 export default ArtistPage;
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ query }: any) {
   const data = await api.getArtistOverview(query.id);
 
   return {

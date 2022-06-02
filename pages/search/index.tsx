@@ -24,7 +24,7 @@ const SearchPage: React.FC<any> = ({ data }) => {
         minWidth={600}
         pb={160}
       >
-        {data?.map((chart) => (
+        {data?.map((chart: any) => (
           <Stack
             key={chart?.name}
             position="relative"

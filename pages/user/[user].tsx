@@ -29,7 +29,7 @@ const UserProfilePage: React.FC<any> = ({ userData }) => {
           Recently played artists
         </Text>
         <Stack direction="row" gap={4}>
-          {topPlayed.public_playlists?.map(data => (
+          {topPlayed.public_playlists?.map((data: any) => (
             <Card
               key={data?.name}
               artist="Artist"

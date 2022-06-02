@@ -1,4 +1,4 @@
-export const options = {
+export const options: any = {
   method: "GET",
   headers: {
     "X-RapidAPI-Host": process.env.RAPIDAPI_HOST,

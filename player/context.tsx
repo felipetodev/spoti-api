@@ -22,7 +22,7 @@ const defaultValues = {
 
 const PlayerContext = React.createContext(defaultValues);
 
-const PlayerProvider = ({ children }) => {
+const PlayerProvider = ({ children }: any) => {
   const [trackUri, setTrackUri] = useState("");
   const [playing, setPlaying] = useState(false);
   const [trackData, setTrackData] = useState("");
@@ -50,7 +50,7 @@ const PlayerProvider = ({ children }) => {
     getTrackInformation()
   }, [trackUri])
 
-  const providerValue = useMemo(() => {
+  const providerValue: any = useMemo(() => {
     return {
       trackData,
       playing,

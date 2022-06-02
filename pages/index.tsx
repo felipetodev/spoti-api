@@ -7,8 +7,8 @@ import { useUser } from "../user/hooks";
 import UserBanner from "../components/UserBanner";
 import api from "../user/api"
 
-const Home: NextPage = ({ initialData }) => {
-  const { updateUser } = useUser()
+const Home: NextPage = ({ initialData }: any) => {
+  const { updateUser }: any = useUser()
 
   useEffect(() => {
     updateUser(initialData)
@@ -38,7 +38,7 @@ const Home: NextPage = ({ initialData }) => {
           Recently played artists
         </Text>
         <Stack direction="row" gap={4}>
-          {topPlayed?.map(data => (
+          {topPlayed?.map((data: any) => (
             <Card
               key={data?.name}
               artist="Artist"

@@ -92,7 +92,7 @@ export const TrackListRow: React.FC<any> = ({
                 </Text>
               </Stack>
             )}
-            {artists?.map((artist, idx) => (
+            {artists?.map((artist: any, idx: any) => (
               <Text key={artist?.profile?.name || artist?.id} fontSize="sm">
                 {artist?.profile?.name || artist?.name}
                 {idx !== artists.length - 1 && (
@@ -135,9 +135,9 @@ export const TrackListRow: React.FC<any> = ({
 
 const SearchTrackResults: React.FC<any> = ({ tracks }) => {
   const topSongs = useMemo(() => {
-    let top5 = [];
+    let top5: any = [];
     if (!tracks) return [];
-    tracks.forEach((song, idx) => {
+    tracks.forEach((song: any, idx: any) => {
       if (idx < 4) {
         top5.push(song.data);
       }
@@ -145,7 +145,7 @@ const SearchTrackResults: React.FC<any> = ({ tracks }) => {
     return top5;
   }, [tracks]);
 
-  const { trackData, updatePlayer, statusPlayer } = usePlayer();
+  const { trackData, updatePlayer, statusPlayer }: any = usePlayer();
 
   const onPlayTrack = (track: any) => {
     updatePlayer(track.id);
@@ -164,7 +164,7 @@ const SearchTrackResults: React.FC<any> = ({ tracks }) => {
         </Text>
         <Text fontSize="sm">SEE ALL</Text>
       </Stack>
-      {topSongs.map((songs, idx) => (
+      {topSongs.map((songs: any, idx: any) => (
         <TrackListRow
           key={songs?.id}
           isActive={songs?.id === trackData?.id}

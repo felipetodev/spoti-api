@@ -19,23 +19,26 @@ const PlayerControls: React.FC<any> = () => {
   // const [isPlaying, setPlaying] = useState(false);
   // const [playerStatus, setPlayerStatus] = useState({});
   const playRef = useRef(null);
-  const { trackData, playing, statusPlayer } = usePlayer();
-
+  const { trackData, playing, statusPlayer }: any = usePlayer();
   const onPlayTrack = () => {
     statusPlayer(!playing);
     if (playing) {
+      // @ts-ignore: Object is possibly 'null'
       playRef.current.pause();
     } else {
+      // @ts-ignore: Object is possibly 'null'
       playRef.current.play();
     }
   };
 
   useEffect(() => {
+    // @ts-ignore: Object is possibly 'null'
     if (playing) playRef.current.play();
   }, [playing, statusPlayer]);
 
   const timeUpdateHandler = (track: any) => {
     const current = Math.round(track.target.currentTime);
+    // @ts-ignore: Object is possibly 'null'
     const duration = Math.round(playRef.current.duration);
     if (current === duration) statusPlayer(!playing);
   };
