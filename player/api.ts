@@ -1,16 +1,18 @@
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Host': process.env.RAPIDAPI_HOST,
-		'X-RapidAPI-Key': process.env.RAPIDAPI_KEY
-	}
-};
+import { options } from "../utils";
 
 export default {
   getTrack: async (trackId) => {
-    if (!trackId) return {}
-    const response = await fetch(`https://spotify23.p.rapidapi.com/tracks/?ids=${trackId}`, options)
-    const { tracks } = await response.json()
-    return tracks
-  }
-}
+    if (!trackId) return {};
+    try {
+      const response = await fetch(
+        `https://spotify23.p.rapidapi.com/tracks/?ids=${trackId}`,
+        options
+      );
+      const { tracks } = await response.json();
+      return tracks;
+    } catch (e) {
+      console.error(e);
+      return {};
+    }
+  },
+};

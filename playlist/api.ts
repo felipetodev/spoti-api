@@ -1,36 +1,31 @@
-const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Host': process.env.RAPIDAPI_HOST,
-		'X-RapidAPI-Key': process.env.RAPIDAPI_KEY
-	}
-};
+import { options } from "../utils";
 
 export default {
   getPlaylist: async (playlistId: string) => {
-    if (!playlistId) return {}
-
-    let res
+    if (!playlistId) return {};
     try {
-      res = await fetch(`https://spotify23.p.rapidapi.com/playlist/?id=${playlistId}`, options)
-
-      if (!res.ok) {
-        console.log(res)
-      }
-
-      res = await res.json()
+      const res = await fetch(
+        `https://spotify23.p.rapidapi.com/playlist/?id=${playlistId}`,
+        options
+      );
+      return res.json();
     } catch (e) {
-      console.error(e)
-      return {}
+      console.error(e);
+      return {};
     }
-    return res
   },
   getPlaylistTrack: async (playlistId: string) => {
-    if (!playlistId) return {}
-    console.log({ playlistId })
-    const trackRes = await fetch(`https://spotify23.p.rapidapi.com/playlist_tracks/?id=${playlistId}&offset=0&limit=100`, options)
-    const trackData = await trackRes.json()
-    console.log(trackData)
-    return trackData
-  }
-}
+    if (!playlistId) return {};
+    try {
+      const trackRes = await fetch(
+        `https://spotify23.p.rapidapi.com/playlist_tracks/?id=${playlistId}&offset=0&limit=100`,
+        options
+      );
+      const { items } = await trackRes.json();
+      return items
+    } catch (e) {
+      console.error(e);
+      return {};
+    }
+  },
+};
