@@ -15,7 +15,7 @@ const Navigation: React.FC<any> = () => {
   const { publicPlaylists } = useUser();
 
   return (
-    <Stack position="relative" minWidth={60} h="full" top={0}>
+    <Stack position="relative" zIndex={50} minWidth={60} h="full" top={0}>
       <Stack
         as="nav"
         backgroundColor="#000"

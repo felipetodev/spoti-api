@@ -43,6 +43,7 @@ const PlayerControls: React.FC<any> = () => {
   return (
     <Stack
       as="footer"
+      zIndex={54}
       className="now-playing"
       position="fixed"
       bottom={0}
