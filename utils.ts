@@ -5,3 +5,11 @@ export const options: any = {
     "X-RapidAPI-Key": process.env.RAPIDAPI_KEY,
   },
 };
+
+export const getTime = (time: number) => {
+  return (
+    new Date(time).getMinutes() +
+    ":" +
+    ("0" + new Date(time).getSeconds()).slice(-2)
+  );
+};

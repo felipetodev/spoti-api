@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
 import { Image, Stack, Text } from "@chakra-ui/react";
 import { usePlayer } from "../../player/hooks";
+import TimeAgo from "../../hooks/useTimeAgo";
+import { getTime } from "../../utils";
 
 export const LikeHearthIcon: React.FC<any> = (props) => (
   <Stack
@@ -116,14 +118,14 @@ export const TrackListRow: React.FC<any> = ({
                 {song}
               </Text>
             </Stack>
-            <Text fontSize="sm">{dateAdded}</Text>
-            <Text fontSize="sm">{duration}</Text>
+            <TimeAgo fontSize="sm" timestamp={new Date(dateAdded).getTime()} />
+            <Text fontSize="sm">{getTime(duration)}</Text>
           </>
         ) : (
           <>
             <LikeHearthIcon />
             <Stack px={6}>
-              <Text fontSize="sm">{duration}</Text>
+              <Text fontSize="sm">{getTime(duration)}</Text>
             </Stack>
             <OptionsSongIcon />
           </>
