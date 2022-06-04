@@ -86,7 +86,7 @@ const SearchArtist: React.FC<any> = ({
         ) : (
           <CardShelf artist={artist} tracks={tracks} />
         )}
-        <Text fontSize={24} fontWeight={700}>
+        <Text fontSize={24} fontWeight={700} pt={14}>
           Featuring {artist?.profile?.name}
         </Text>
         <Stack direction="row" gap={4}>

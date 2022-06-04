@@ -5,8 +5,8 @@ const NoImage: React.FC<any> = () => (
   <Stack
     justifyContent="center"
     alignItems="center"
-    h={170}
-    w={170}
+    h={160}
+    w={160}
     backgroundColor="#333"
     borderRadius={9999}
     overflow="hidden"
