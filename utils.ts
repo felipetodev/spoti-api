@@ -13,3 +13,8 @@ export const getTime = (time: number) => {
     ("0" + new Date(time).getSeconds()).slice(-2)
   );
 };
+
+export const getNumberFormat = (count: number) => {
+  if (!count) return null;
+  return new Intl.NumberFormat("es-CL", { currency: "CLP" }).format(count);
+};
