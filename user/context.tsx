@@ -1,18 +1,21 @@
 import React, { useState, useMemo } from "react";
-// import api from "./api";
 
 const defaultValues = {
-  image_url: null,
-  name: "",
-  public_playlists: [],
-  recently_played_artists: [],
-  uri: ""
+  username: "",
+  userImage: "",
+  publicPlaylists: [],
+  recentlyPlayedArtists: [],
+  totalPublicPlaylistsCount: 0,
+  followingCount: 0,
+  followersCount: 0,
+  color: "",
+  updateUser: () => {},
 };
 
 const UserContext = React.createContext(defaultValues);
 
 const UserProvider = ({ children }: any) => {
-  const [userData, setUserData] = useState<any>({})
+  const [userData, setUserData] = useState<any>({});
 
   const updateUser = (data: any) => {
     setUserData({
@@ -25,8 +28,8 @@ const UserProvider = ({ children }: any) => {
       followersCount: data.followers_count,
       color: data.color,
       uri: data.uri,
-    })
-  }
+    });
+  };
 
   const providerValue: any = useMemo(() => {
     return {
@@ -38,7 +41,7 @@ const UserProvider = ({ children }: any) => {
       followingCount: userData.followingCount,
       followersCount: userData.followersCount,
       color: userData.color,
-      updateUser
+      updateUser,
     };
   }, [userData]);
 

@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import type { NextPage } from "next";
 import { useEffect } from "react";
 import { Container, Stack, Text } from "@chakra-ui/react";
@@ -14,35 +13,22 @@ const Home: NextPage = ({ initialData }: any) => {
     updateUser(initialData)
   }, [initialData])
 
-  const topPlayed = useMemo(() => {
-    let top5: any = [];
-    if (!initialData?.recently_played_artists) return [];
-    initialData.recently_played_artists.forEach(
-      (artist: any, idx: number) => {
-        if (idx < 5) {
-          top5.push(artist);
-        }
-      }
-    );
-    return top5;
-  }, [initialData]);
-
   return (
     <Stack minHeight="full" w="full">
       <UserBanner />
       <Container maxWidth="container.xxl" px={6}>
-        <Text fontSize={24} fontWeight={700}>
+        {/* <Text fontSize={24} fontWeight={700}>
           Public Playlists
-        </Text>
+        </Text> */}
         <Text fontSize={24} fontWeight={700}>
           Recently played artists
         </Text>
         <Stack direction="row" gap={4}>
-          {topPlayed?.map((data: any) => (
+          {initialData.recently_played_artists?.map((data: any) => (
             <Card
               key={data?.name}
               artist="Artist"
-              description={data?.description}
+              uri={data?.uri}
               name={data?.name}
               image={data?.image_url}
             />

@@ -2,22 +2,10 @@ import React, { useState, useMemo, useEffect } from "react";
 import api from "./api";
 
 const defaultValues = {
-  album: {},
-  artists: [],
-  disc_number: 0,
-  duration_ms: 0,
-  explicit: false,
-  external_ids: {},
-  external_urls: {},
-  id: "",
-  is_local: false,
-  is_playable: false,
-  name: "",
-  popularity: 0,
-  preview_url: "",
-  track_number: 0,
-  type: "",
-  uri: "",
+  trackData: [],
+  playing: false,
+  updatePlayer: () => {},
+  statusPlayer: () => {},
 };
 
 const PlayerContext = React.createContext(defaultValues);
