@@ -71,8 +71,8 @@ const PlayerControls: React.FC<any> = () => {
           <Image w={14} h={14} src={trackData?.album?.images[0]?.url} alt="" />
           <Stack pl={2}>
             <Text fontSize="sm">{trackData?.name}</Text>
-            {trackData.artists && (
-              <Text fontSize="sm">{trackData?.artists[0]?.name}</Text>
+            {trackData?.artists && (
+              <Text fontSize="sm">{trackData.artists[0]?.name}</Text>
             )}
             <audio
               ref={playRef}
