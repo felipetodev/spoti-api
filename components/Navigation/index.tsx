@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Text } from "@chakra-ui/react";
+import { ring, Stack, Text } from "@chakra-ui/react";
 import SpotifyLogo from "../Logo";
 import {
   CollectionIcon,
@@ -23,8 +23,9 @@ const Navigation: React.FC<any> = () => {
         h="full"
         top={0}
         minWidth={60}
-        px={6}
-        mb={24}
+        px={4}
+        pb={100}
+        overflow="hidden"
       >
         <Stack py={6}>
           <Link href="/">
@@ -84,7 +85,39 @@ const Navigation: React.FC<any> = () => {
           </Stack>
         </Stack>
         <Stack pb={2} borderBottom="1px solid #282828" />
-        <Stack>
+        <Stack
+          pt={2}
+          overflowY="scroll"
+          css={{
+            "&::-webkit-scrollbar": {
+              width: "8px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              background: "rgba(255,255,255,.2)",
+              borderRadius: "12px",
+              height: "45.471%",
+            },
+          }}
+        >
+          {publicPlaylists?.map((playlist: any) => (
+            <Link
+              href={`/playlist/${playlist?.uri.split(":")[2]}`}
+              key={playlist?.name}
+            >
+              <a>
+                <Text
+                  fontSize="sm"
+                  maxWidth={48}
+                  pb={2}
+                  textOverflow="ellipsis"
+                  overflow="hidden"
+                  whiteSpace="nowrap"
+                >
+                  {playlist?.name}
+                </Text>
+              </a>
+            </Link>
+          ))}
           {publicPlaylists?.map((playlist: any) => (
             <Link
               href={`/playlist/${playlist?.uri.split(":")[2]}`}
