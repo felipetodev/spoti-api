@@ -13,9 +13,9 @@ const ArtistCard: React.FC<any> = ({ artist }) => {
       <Link href={`/artist/${artist?.uri?.split(":")[2]}`}>
         <a>
           <Stack
-            as="a"
             py={4}
             px={4}
+            minWidth={370}
             position="relative"
             borderRadius="md"
             direction="column"
@@ -67,7 +67,7 @@ const ArtistCard: React.FC<any> = ({ artist }) => {
 
 const CardShelf: React.FC<any> = ({ artist, tracks }) => {
   return (
-    <Stack direction="row" gap={6}>
+    <Stack direction={{ sm: "column", md: "row" }} gap={6}>
       <ArtistCard artist={artist} />
       <SearchTrackResults tracks={tracks} />
     </Stack>

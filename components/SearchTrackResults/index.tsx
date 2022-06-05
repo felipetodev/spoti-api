@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { Image, Stack, Text } from "@chakra-ui/react";
 import { usePlayer } from "../../player/hooks";
 import TimeAgo from "../../hooks/useTimeAgo";
-import { getTime } from "../../utils";
+import { getNumberFormat, getTime } from "../../utils";
 
 export const LikeHearthIcon: React.FC<any> = (props) => (
   <Stack
@@ -33,6 +33,7 @@ export const TrackListRow: React.FC<any> = ({
   isActive,
   isPlaylist,
   dateAdded,
+  playcount,
   index,
   ...props
 }) => {
@@ -40,7 +41,7 @@ export const TrackListRow: React.FC<any> = ({
     <Stack
       direction="row"
       borderRadius="md"
-      width="100%"
+      width={{ sm: 480, md: "full" }}
       _hover={{ backgroundColor: "#282828" }}
       p={2}
       margin="0px !important"
@@ -115,10 +116,15 @@ export const TrackListRow: React.FC<any> = ({
                 overflow="hidden"
                 whiteSpace="nowrap"
               >
-                {song}
+                {getNumberFormat(playcount) || song}
               </Text>
             </Stack>
-            <TimeAgo fontSize="sm" timestamp={new Date(dateAdded).getTime()} />
+            {dateAdded && (
+              <TimeAgo
+                fontSize="sm"
+                timestamp={new Date(dateAdded).getTime()}
+              />
+            )}
             <Text fontSize="sm">{getTime(duration)}</Text>
           </>
         ) : (

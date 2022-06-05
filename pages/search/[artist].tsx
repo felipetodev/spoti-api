@@ -10,6 +10,7 @@ const SearchArtist: React.FC<any> = ({
   artists,
   artist,
   tracks,
+  albums,
   users,
 }) => {
   const topArtists = useMemo(() => {
@@ -23,7 +24,7 @@ const SearchArtist: React.FC<any> = ({
     return top5;
   }, [artists]);
 
-  const isUser = false
+  const isUser = albums.totalCount < 1;
 
   return (
     <Stack minHeight="full" w="full" pt={100}>
@@ -36,7 +37,6 @@ const SearchArtist: React.FC<any> = ({
             <Link href={`/user/${users[0].data.id}`}>
               <a>
                 <Stack
-                  as="a"
                   py={4}
                   px={4}
                   position="relative"
@@ -93,6 +93,7 @@ const SearchArtist: React.FC<any> = ({
           {topResults?.map(({ data }: any) => (
             <Card
               key={data?.uri}
+              uri={data?.uri}
               owner={data?.owner?.name}
               description={data?.description}
               name={data?.name}
@@ -108,6 +109,7 @@ const SearchArtist: React.FC<any> = ({
           {topArtists?.map((artist: any) => (
             <Card
               key={artist?.uri}
+              uri={artist?.uri}
               artist="Artist"
               owner={artist?.owner?.name}
               description={artist?.description}
@@ -125,18 +127,17 @@ const SearchArtist: React.FC<any> = ({
 export default SearchArtist;
 
 export async function getServerSideProps({ query }: any) {
-  const res = await api.getGlobalSearch(query.artist);
-  const artist = res.artists.items[0]?.data ?? {};
-  const albums = res.albums;
+  const { artist, artists, users, albums, tracks, topResults } =
+    await api.getGlobalSearch(query.artist);
 
   return {
     props: {
       artist,
-      artists: res.artists.items,
-      users: res.users.items,
+      artists,
+      users,
       albums,
-      tracks: res.tracks.items,
-      topResults: res.topResults.featured,
+      tracks,
+      topResults,
     },
   };
 }

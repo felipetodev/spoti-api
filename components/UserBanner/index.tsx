@@ -3,11 +3,13 @@ import { Button, Image, Stack, Text } from "@chakra-ui/react";
 import { useUser } from "../../user/hooks";
 import { OptionsSongIcon } from "../SearchTrackResults";
 import { VerifiedIcon } from "../Icons";
+import { getNumberFormat } from "../../utils";
 
 const UserBanner: React.FC<any> = ({
   isPlaylist,
   playlistData,
   artistData,
+  userData,
 }) => {
   const {
     username,
@@ -51,7 +53,7 @@ const UserBanner: React.FC<any> = ({
                 isPlaylist && playlistData
                   ? playlistData?.images[0]?.url
                   : artistData?.visuals?.avatarImage?.sources[0]?.url ||
-                    userImage
+                    userData?.image_url || userImage
               }
               alt="user-avatar"
             />
@@ -71,28 +73,30 @@ const UserBanner: React.FC<any> = ({
             <Text as="h1" fontWeight={700} fontSize="96px">
               {isPlaylist && playlistData
                 ? playlistData.name
-                : artistData?.profile?.name || username}
+                : artistData?.profile?.name || userData?.name || username}
             </Text>
             <Stack direction="row">
               {artistData?.stats ? (
                 <Stack direction="row">
-                  <Text pr={1}>{artistData.stats.monthlyListeners}</Text>
+                  <Text pr={1}>{getNumberFormat(artistData.stats.monthlyListeners)}</Text>
                   <Text>monthly listeners</Text>
                 </Stack>
               ) : (
                 <>
                   {isPlaylist && playlistData.owner?.display_name && (
                     <Stack direction="row">
-                      <Image
-                        h={5}
-                        w={5}
-                        mr={1}
-                        draggable={false}
-                        objectFit="cover"
-                        borderRadius={9999}
-                        src={userImage}
-                        alt="user"
-                      />
+                      {userImage && (
+                        <Image
+                          h={5}
+                          w={5}
+                          mr={1}
+                          draggable={false}
+                          objectFit="cover"
+                          borderRadius={9999}
+                          src={userImage}
+                          alt="user"
+                        />
+                      )}
                       <Text
                         fontWeight={700}
                         fontSize="sm"
@@ -110,7 +114,7 @@ const UserBanner: React.FC<any> = ({
                     {isPlaylist && playlistData ? (
                       <>{playlistData.followers.total} Likes</>
                     ) : (
-                      <>{totalPublicPlaylistsCount} Public Playlists</>
+                      <>{userData?.total_public_playlists_count || totalPublicPlaylistsCount} Public Playlists</>
                     )}
                   </Text>
                   <Text
@@ -124,7 +128,7 @@ const UserBanner: React.FC<any> = ({
                     {isPlaylist && playlistData ? (
                       <>{playlistData.tracks.total} songs</>
                     ) : (
-                      <>{followersCount} Followers</>
+                      <>{userData?.following_count || followersCount} Followers</>
                     )}
                   </Text>
                   <Text
@@ -135,7 +139,7 @@ const UserBanner: React.FC<any> = ({
                       fontWeight: 700,
                     }}
                   >
-                    {followingCount} Following
+                    {userData?.followers_count || followingCount} Following
                   </Text>
                 </>
               )}
