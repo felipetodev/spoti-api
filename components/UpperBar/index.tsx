@@ -61,7 +61,7 @@ const UpperBar: React.FC<any> = ({ router }) => {
           <ArrowButton />
           <ArrowButton transform="rotate(180deg)" />
           {router?.state?.pathname.includes("/search") && (
-            <FormControl as="form">
+            <FormControl as="form" onSubmit={e => e.preventDefault()}>
               <InputGroup>
                 <InputLeftElement pointerEvents="none">
                   <SearchIcon fill="#000" />
