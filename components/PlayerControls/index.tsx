@@ -12,8 +12,10 @@ import {
   SkipForward,
   VolumeToggleIcon,
 } from "./Controls";
+import PlayerSlider from "./PlayerSlider";
 import { LikeHearthIcon } from "../SearchTrackResults";
 import { usePlayer } from "../../player/hooks";
+import { getTime } from "../../utils";
 
 const PlayerControls: React.FC<any> = () => {
   // const [isPlaying, setPlaying] = useState(false);
@@ -85,7 +87,7 @@ const PlayerControls: React.FC<any> = () => {
           </Box>
         </Stack>
 
-        <Stack direction="column" alignItems="center" gap={4}>
+        <Stack direction="column" alignItems="center">
           <Stack direction="row" alignItems="center" gap={4}>
             <ShuffleIcon />
             <SkipBackIcon />
@@ -108,7 +110,17 @@ const PlayerControls: React.FC<any> = () => {
             <SkipForward />
             <RepeatIcon />
           </Stack>
-          <Box h={1} margin="0px !important" w={400} backgroundColor="#ccc" />
+          <Stack direction="row" alignItems="center">
+            <Text px={2} fontSize="sm">
+              {getTime(14000)}
+            </Text>
+            <PlayerSlider />
+            {trackData?.duration_ms && (
+              <Text px={2} fontSize="sm">
+                {getTime(trackData.duration_ms)}
+              </Text>
+            )}
+          </Stack>
         </Stack>
 
         <Stack direction="row" alignItems="center">

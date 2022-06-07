@@ -20,7 +20,7 @@ const Home: NextPage = ({ initialData }: any) => {
         {/* <Text fontSize={24} fontWeight={700}>
           Public Playlists
         </Text> */}
-        <Text fontSize={24} fontWeight={700}>
+        <Text fontSize={24} fontWeight={700} pb={6}>
           Recently played artists
         </Text>
         <Stack direction="row" gap={4}>
