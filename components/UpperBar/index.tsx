@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Box,
   Stack,
@@ -8,8 +8,9 @@ import {
   InputLeftElement,
   InputGroup,
   Input,
+  InputRightElement,
 } from "@chakra-ui/react";
-import { ArrowIcon, UserWidgetNameIcon } from "../Icons";
+import { ArrowIcon, CloseIcon, UserWidgetNameIcon } from "../Icons";
 import { SearchIcon } from "../Navigation/Icons";
 import { useRouter } from "next/router";
 import debounce from "just-debounce-it";
@@ -27,11 +28,17 @@ export const ArrowButton: React.FC<any> = (props) => (
 );
 
 const UpperBar: React.FC<any> = ({ router }) => {
+  const inputRef = useRef<any>();
   const nextRouter = useRouter();
 
   const handleInput = debounce(({ target }: any) => {
     nextRouter.push(`/search/${target.value}`);
   }, 300);
+
+  const handleSearchDelete = () => {
+    nextRouter.replace("/search")
+    inputRef.current.value = ""
+  }
 
   return (
     <Stack position="relative" zIndex={50}>
@@ -57,6 +64,7 @@ const UpperBar: React.FC<any> = ({ router }) => {
                   <SearchIcon fill="#000" />
                 </InputLeftElement>
                 <Input
+                  ref={inputRef}
                   name="search"
                   type="text"
                   width={340}
@@ -68,6 +76,11 @@ const UpperBar: React.FC<any> = ({ router }) => {
                   _placeholder={{ fontSize: "sm" }}
                   placeholder="Artists, songs, or podcasts"
                 />
+                {nextRouter.query.artist && (
+                  <InputRightElement onClick={handleSearchDelete}>
+                    <CloseIcon />
+                  </InputRightElement>
+                )}
               </InputGroup>
             </FormControl>
           )}
