@@ -43,7 +43,7 @@ const Home: NextPage = ({ initialData }: any) => {
 export default Home;
 
 export async function getStaticProps() {
-  const user = "wildkyo";
+  const user = "goncy-ar";
   const data = await api.getUserProfile(user)
 
   return {
