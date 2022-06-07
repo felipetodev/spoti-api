@@ -9,6 +9,7 @@ export default {
         `https://spotify23.p.rapidapi.com/user_profile/?id=${userId}&playlistLimit=10&artistLimit=10`,
         options
       );
+      console.warn({ statusApi: response?.statusText })
       const { recently_played_artists, ...restOfData } = await response.json();
       const topRecentlyPlayed =
         recently_played_artists?.filter((_: any, idx: any) => idx < 5) ?? [];
