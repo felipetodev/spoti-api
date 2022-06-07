@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Stack,
@@ -12,6 +12,7 @@ import {
 import { ArrowIcon, UserWidgetNameIcon } from "../Icons";
 import { SearchIcon } from "../Navigation/Icons";
 import { useRouter } from "next/router";
+import debounce from "just-debounce-it";
 
 export const ArrowButton: React.FC<any> = (props) => (
   <Box
@@ -25,23 +26,12 @@ export const ArrowButton: React.FC<any> = (props) => (
   </Box>
 );
 
-const DEFAULT_STATE = {
-  search: "",
-};
-
 const UpperBar: React.FC<any> = ({ router }) => {
-  const [inputField, setInputField] = useState(DEFAULT_STATE);
   const nextRouter = useRouter();
 
-  const handleInput = ({ target }: any) => {
-    // @ts-ignore
-    setInputField({ [target.name]: target.value });
-  };
-
-  const onSubmitForm = (e: any) => {
-    e.preventDefault();
-    nextRouter.push(`/search/${inputField.search}`);
-  };
+  const handleInput = debounce(({ target }: any) => {
+    nextRouter.push(`/search/${target.value}`);
+  }, 300);
 
   return (
     <Stack position="relative" zIndex={50}>
@@ -61,7 +51,7 @@ const UpperBar: React.FC<any> = ({ router }) => {
           <ArrowButton />
           <ArrowButton transform="rotate(180deg)" />
           {router?.state?.pathname.includes("/search") && (
-            <FormControl as="form" onSubmit={onSubmitForm}>
+            <FormControl as="form">
               <InputGroup>
                 <InputLeftElement pointerEvents="none">
                   <SearchIcon fill="#000" />
@@ -72,7 +62,6 @@ const UpperBar: React.FC<any> = ({ router }) => {
                   width={340}
                   borderRadius={9999}
                   fontSize="sm"
-                  value={inputField.search}
                   color="#000"
                   bg="#fff"
                   onChange={handleInput}
