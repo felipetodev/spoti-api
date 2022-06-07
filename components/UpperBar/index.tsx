@@ -14,6 +14,7 @@ import { ArrowIcon, CloseIcon, UserWidgetNameIcon } from "../Icons";
 import { SearchIcon } from "../Navigation/Icons";
 import { useRouter } from "next/router";
 import debounce from "just-debounce-it";
+import { useUser } from "../../user/hooks";
 
 export const ArrowButton: React.FC<any> = (props) => (
   <Box
@@ -30,6 +31,8 @@ export const ArrowButton: React.FC<any> = (props) => (
 const UpperBar: React.FC<any> = ({ router }) => {
   const inputRef = useRef<any>();
   const nextRouter = useRouter();
+
+  const { username, userImage }: any = useUser()
 
   const handleInput = debounce(({ target }: any) => {
     nextRouter.push(`/search/${target.value}`);
@@ -98,11 +101,11 @@ const UpperBar: React.FC<any> = ({ router }) => {
             borderRadius={9999}
             height={10}
             width={10}
-            src="https://i.scdn.co/image/ab6775700000ee85447e82e7694df5b9a437f08d"
-            alt="user"
+            src={userImage}
+            alt={username}
           />
           <Text lineHeight="1rem" fontSize="sm" fontWeight={700}>
-            midudev
+            {username}
           </Text>
           <UserWidgetNameIcon style={{ marginRight: "10px" }} />
         </Stack>
