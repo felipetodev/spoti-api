@@ -11,6 +11,10 @@ const min = 0;
 const max = 100;
 const handleSize = 12;
 
+const clamp = (number: number, min: number, max: number) => {
+  return Math.max(min, Math.min(number, max))
+}
+
 const PlayerSlider: React.FC<any> = () => {
   const [value, setValue] = useState(0);
   const constraintsRef = useRef<any>();
@@ -36,6 +40,14 @@ const PlayerSlider: React.FC<any> = () => {
     handleX.set(newProgress * progressBarBounds.width);
   }, [handleX, value]);
 
+  const handleOnPointerProgressBar = (e: any) => {
+    const { left, width } = progressBarRef.current.getBoundingClientRect();
+    const position = e.pageX - left;
+    const newProgress = position / width;
+    const newValue = newProgress * (max - min)
+    setValue(clamp(newValue, min, max))
+  }
+
   return (
     <Stack margin="0px !important">
       <Stack
@@ -44,7 +56,6 @@ const PlayerSlider: React.FC<any> = () => {
         w={380}
         direction="column"
         justifyContent="center"
-        margin="0px !important"
       >
         <Box
           as={motion.div}
@@ -78,6 +89,7 @@ const PlayerSlider: React.FC<any> = () => {
             as={motion.div}
             ref={handleRef}
             data-test="slider-handle"
+            zIndex={10}
             position="relative"
             bg="#fff"
             rounded="full"
@@ -92,14 +104,14 @@ const PlayerSlider: React.FC<any> = () => {
               x: handleX,
             }}
           />
-          {/* <Box
+          <Box
             data-test="slider-clickable-area"
             position="absolute"
             w="full"
             h={4}
-            border="1px solid green"
             margin="0px !important"
-          /> */}
+            onPointerDown={handleOnPointerProgressBar}
+          />
         </Stack>
       </Stack>
       {/* <span>{value}</span> */}
