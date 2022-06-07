@@ -20,6 +20,6 @@ export default async function handler(
   } catch (e) {
     return res
       .status(400)
-      .end("Something with wrong fetching rapidapi spotify track data");
+      .end("Something went wrong fetching rapidapi spotify track data");
   }
 }
