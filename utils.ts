@@ -18,3 +18,11 @@ export const getNumberFormat = (count: number) => {
   if (!count) return null;
   return new Intl.NumberFormat("es-CL", { currency: "CLP" }).format(count);
 };
+
+export const clamp = (number: number, min: number, max: number) => {
+  return Math.max(min, Math.min(number, max))
+}
+
+export const getTimeFormat = (time: number) => {
+  return Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2);
+};

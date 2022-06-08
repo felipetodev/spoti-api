@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Stack, Image, Text, Box, Container } from "@chakra-ui/react";
 import {
   DeviceIcon,
@@ -15,33 +15,38 @@ import {
 import PlayerSlider from "./PlayerSlider";
 import { LikeHearthIcon } from "../SearchTrackResults";
 import { usePlayer } from "../../player/hooks";
-import { getTime } from "../../utils";
+import { getTime, getTimeFormat } from "../../utils";
+
+const DEFAULT_VALUE = {
+  currentTime: 0,
+  duration: 0,
+};
 
 const PlayerControls: React.FC<any> = () => {
-  // const [isPlaying, setPlaying] = useState(false);
-  // const [playerStatus, setPlayerStatus] = useState({});
-  const playRef = useRef(null);
+  const [songInfo, setSongInfo] = useState(DEFAULT_VALUE);
+  const playRef = useRef<any>(null);
   const { trackData, playing, statusPlayer }: any = usePlayer();
   const onPlayTrack = () => {
     statusPlayer(!playing);
     if (playing) {
-      // @ts-ignore: Object is possibly 'null'
       playRef.current.pause();
     } else {
-      // @ts-ignore: Object is possibly 'null'
       playRef.current.play();
     }
   };
 
   useEffect(() => {
-    // @ts-ignore: Object is possibly 'null'
     if (playing) playRef.current.play();
   }, [playing, statusPlayer]);
 
   const timeUpdateHandler = (track: any) => {
     const current = Math.round(track.target.currentTime);
-    // @ts-ignore: Object is possibly 'null'
-    const duration = Math.round(playRef.current.duration);
+    const duration = Math.round(track.target.duration);
+    setSongInfo({
+      ...songInfo,
+      currentTime: current,
+      duration,
+    });
     if (current === duration) statusPlayer(!playing);
   };
 
@@ -80,6 +85,7 @@ const PlayerControls: React.FC<any> = () => {
               ref={playRef}
               onTimeUpdate={timeUpdateHandler}
               src={trackData?.preview_url}
+              onEnded={() => {}}
             />
           </Stack>
           <Box pl={6}>
@@ -111,12 +117,14 @@ const PlayerControls: React.FC<any> = () => {
             <RepeatIcon />
           </Stack>
           <Stack direction="row" alignItems="center">
-            <Text px={2} fontSize="sm">
-              {getTime(14000)}
+            <Text px={2} fontSize="sm" minWidth={12} textAlign="center">
+              {songInfo.currentTime
+                ? getTimeFormat(songInfo.currentTime)
+                : "0:00"}
             </Text>
-            <PlayerSlider />
+            <PlayerSlider songInfo={songInfo} />
             {trackData?.duration_ms && (
-              <Text px={2} fontSize="sm">
+              <Text px={2} fontSize="sm" minWidth={12} textAlign="center">
                 {getTime(trackData.duration_ms)}
               </Text>
             )}

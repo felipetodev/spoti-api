@@ -6,16 +6,13 @@ import {
   useMotionTemplate,
   useTransform,
 } from "framer-motion";
+import { clamp } from "../../utils";
 
 const min = 0;
-const max = 100;
+const max = 30;
 const handleSize = 12;
 
-const clamp = (number: number, min: number, max: number) => {
-  return Math.max(min, Math.min(number, max))
-}
-
-const PlayerSlider: React.FC<any> = () => {
+const PlayerSlider: React.FC<any> = ({ songInfo }) => {
   const [value, setValue] = useState(0);
   const constraintsRef = useRef<any>();
   const handleRef = useRef<any>();
@@ -35,10 +32,10 @@ const PlayerSlider: React.FC<any> = () => {
   };
 
   useEffect(() => {
-    const newProgress = value / (max - min);
+    const newProgress = songInfo.currentTime / (max - min);
     const progressBarBounds = progressBarRef.current?.getBoundingClientRect();
     handleX.set(newProgress * progressBarBounds.width);
-  }, [handleX, value]);
+  }, [handleX, value, songInfo]);
 
   const handleOnPointerProgressBar = (e: any) => {
     const { left, width } = progressBarRef.current.getBoundingClientRect();
