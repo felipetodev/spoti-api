@@ -76,8 +76,15 @@ const PlayerControls: React.FC<any> = () => {
       >
         <Stack direction="row" alignItems="center">
           <Image w={14} h={14} src={trackData?.album?.images[0]?.url} alt="" />
-          <Stack pl={2}>
-            <Text fontSize="sm">{trackData?.name}</Text>
+          <Stack pl={2} maxWidth={250}>
+            <Text
+              fontSize="sm"
+              textOverflow="ellipsis"
+              overflow="hidden"
+              whiteSpace="nowrap"
+            >
+              {trackData?.name}
+            </Text>
             {trackData?.artists && (
               <Text fontSize="sm">{trackData.artists[0]?.name}</Text>
             )}
@@ -88,7 +95,7 @@ const PlayerControls: React.FC<any> = () => {
               onEnded={() => {}}
             />
           </Stack>
-          <Box pl={6}>
+          <Box pl={4}>
             <LikeHearthIcon />
           </Box>
         </Stack>
