@@ -13,7 +13,7 @@ const PlaylistPage: React.FC<any> = ({ data, playlist }) => {
     statusPlayer(true);
   };
   return (
-    <Stack w="full">
+    <Stack w="full" overflowY="scroll" pb={100}>
       <UserBanner isPlaylist playlistData={data} />
       <Stack px={6}>
         <Stack
