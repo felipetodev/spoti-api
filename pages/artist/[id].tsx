@@ -6,8 +6,36 @@ import UserBanner from "../../components/UserBanner";
 import { usePlayer } from "../../player/hooks";
 import Card from "../../components/Card";
 import { getNumberFormat } from "../../utils";
+import {
+  Artist,
+  TopResult,
+  Profile,
+  AppearsOn,
+  Album,
+} from "../../search/types";
+import { PlaylistTrack, PlaylistTrackResponse } from "../../playlist/types";
 
-const ArtistPage: React.FC<any> = ({
+type ArtistStats = {
+  followers: number;
+  monthlyListeners: number;
+  worldRank: number;
+};
+
+export type IArtist = {
+  stats: ArtistStats;
+};
+interface Props {
+  artist: IArtist;
+  visuals: string;
+  profile: Profile;
+  discography: PlaylistTrackResponse[];
+  relatedArtists: Artist[];
+  featuring: TopResult[];
+  appearsOn: AppearsOn[];
+  discoveredOn: TopResult[];
+}
+
+const ArtistPage: React.FC<Props> = ({
   artist,
   discography,
   profile,
@@ -18,9 +46,9 @@ const ArtistPage: React.FC<any> = ({
   visuals,
 }) => {
   const topTracks = useMemo(() => {
-    let top5: any = [];
+    let top5 = [];
     if (!discography) return [];
-    discography.forEach((song: any, idx: number) => {
+    discography.forEach((song: PlaylistTrackResponse, idx: number) => {
       if (idx < 5) {
         top5.push(song.track);
       }
@@ -28,9 +56,9 @@ const ArtistPage: React.FC<any> = ({
     return top5;
   }, [discography]);
 
-  const { trackData, updatePlayer, statusPlayer }: any = usePlayer();
+  const { trackData, updatePlayer, statusPlayer } = usePlayer();
 
-  const onPlayTrack = (trackId: any) => {
+  const onPlayTrack = (trackId: string) => {
     updatePlayer(trackId);
     statusPlayer(true);
   };
@@ -39,7 +67,7 @@ const ArtistPage: React.FC<any> = ({
     <Stack w="full">
       <UserBanner artistData={artist} />
       <Stack px={6} pb={120}>
-        {topTracks.map((track: any, idx: any) => (
+        {topTracks.map((track: PlaylistTrack, idx: number) => (
           <TrackListRow
             isPlaylist
             key={track?.id}
@@ -59,7 +87,7 @@ const ArtistPage: React.FC<any> = ({
               Featuring {profile?.name}
             </Text>
             <Stack direction="row" gap={4} pb={12}>
-              {featuring?.map((data: any) => (
+              {featuring?.map((data) => (
                 <Card
                   key={data?.uri}
                   uri={data?.uri}
@@ -77,12 +105,12 @@ const ArtistPage: React.FC<any> = ({
               Fans also like
             </Text>
             <Stack direction="row" gap={4} pb={12}>
-              {relatedArtists?.map((data: any) => (
+              {relatedArtists?.map((data) => (
                 <Card
                   key={data?.uri}
                   artist="Artist"
                   uri={data?.uri}
-                  owner={data?.owner?.name}
+                  // owner={data?.owner?.name}
                   name={data?.profile?.name}
                   image={data.visuals?.avatarImage?.sources[0]?.url}
                 />
@@ -96,8 +124,8 @@ const ArtistPage: React.FC<any> = ({
               Appears On
             </Text>
             <Stack direction="row" gap={4} pb={12}>
-              {appearsOn?.map(({ releases }: any) => {
-                const data = releases?.items[0];
+              {appearsOn?.map(({ releases }) => {
+                const data: Album = releases?.items[0];
                 return (
                   <Card
                     key={data?.id}
@@ -109,6 +137,8 @@ const ArtistPage: React.FC<any> = ({
                     }
                     name={data?.name}
                     image={data?.coverArt?.sources[0]?.url}
+                    artist={""}
+                    owner={""}
                   />
                 );
               })}
@@ -121,7 +151,7 @@ const ArtistPage: React.FC<any> = ({
               Discovered on
             </Text>
             <Stack direction="row" gap={4} pb={12}>
-              {discoveredOn?.map((data: any) => (
+              {discoveredOn?.map((data) => (
                 <Card
                   key={data?.uri}
                   uri={data?.uri}
@@ -144,6 +174,8 @@ const ArtistPage: React.FC<any> = ({
                   }
                   name={data?.name}
                   image={data.images?.items[0]?.sources[0]?.url}
+                  artist={""}
+                  owner={""}
                 />
               ))}
             </Stack>
@@ -152,7 +184,13 @@ const ArtistPage: React.FC<any> = ({
         <Text fontSize={24} fontWeight={700}>
           About
         </Text>
-        <Stack h="full" w="fit-content" position="relative" borderRadius="md" overflow="hidden">
+        <Stack
+          h="full"
+          w="fit-content"
+          position="relative"
+          borderRadius="md"
+          overflow="hidden"
+        >
           {visuals && (
             <Image
               h={500}
@@ -206,7 +244,7 @@ const ArtistPage: React.FC<any> = ({
 
 export default ArtistPage;
 
-export async function getServerSideProps({ query }: any) {
+export async function getServerSideProps({ query }) {
   const {
     artist,
     discography,

@@ -17,15 +17,20 @@ import { LikeHearthIcon } from "../SearchTrackResults";
 import { usePlayer } from "../../player/hooks";
 import { getTime, getTimeFormat } from "../../utils";
 
+export type SongProps = {
+  currentTime: number,
+  duration: number,
+};
+
 const DEFAULT_VALUE = {
   currentTime: 0,
   duration: 0,
 };
 
-const PlayerControls: React.FC<any> = () => {
-  const [songInfo, setSongInfo] = useState(DEFAULT_VALUE);
-  const playRef = useRef<any>(null);
-  const { trackData, playing, statusPlayer }: any = usePlayer();
+const PlayerControls: React.FC = () => {
+  const [songInfo, setSongInfo] = useState<SongProps>(DEFAULT_VALUE);
+  const playRef = useRef(null);
+  const { trackData, playing, statusPlayer } = usePlayer();
   const onPlayTrack = () => {
     statusPlayer(!playing);
     if (playing) {
@@ -39,9 +44,9 @@ const PlayerControls: React.FC<any> = () => {
     if (playing) playRef.current.play();
   }, [playing, statusPlayer]);
 
-  const timeUpdateHandler = (track: any) => {
-    const current = Math.round(track.target.currentTime);
-    const duration = Math.round(track.target.duration);
+  const timeUpdateHandler = (track: React.ChangeEvent<HTMLAudioElement>) => {
+    const current: number = Math.round(track.target.currentTime);
+    const duration: number = Math.round(track.target.duration);
     setSongInfo({
       ...songInfo,
       currentTime: current,

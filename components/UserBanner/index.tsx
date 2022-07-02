@@ -4,8 +4,17 @@ import { useUser } from "../../user/hooks";
 import { OptionsSongIcon } from "../SearchTrackResults";
 import { VerifiedIcon } from "../Icons";
 import { getNumberFormat } from "../../utils";
+import { PlaylistResponse } from "../../playlist/types";
+import { Context as UserContext } from "../../user/context";
 
-const UserBanner: React.FC<any> = ({
+interface Props {
+  isPlaylist?: boolean;
+  playlistData?: PlaylistResponse;
+  userData?: UserContext;
+  artistData?: any;
+}
+
+const UserBanner: React.FC<Props> = ({
   isPlaylist,
   playlistData,
   artistData,
@@ -17,7 +26,7 @@ const UserBanner: React.FC<any> = ({
     totalPublicPlaylistsCount,
     followingCount,
     followersCount,
-  }: any = useUser();
+  } = useUser();
 
   const hasHeaderImage = artistData?.visuals?.headerImage?.sources[0]?.url;
   const hasHeaderColor =
@@ -53,7 +62,8 @@ const UserBanner: React.FC<any> = ({
                 isPlaylist && playlistData
                   ? playlistData?.images[0]?.url
                   : artistData?.visuals?.avatarImage?.sources[0]?.url ||
-                    userData?.image_url || userImage
+                    userData?.userImage ||
+                    userImage
               }
               alt="user-avatar"
             />
@@ -73,12 +83,14 @@ const UserBanner: React.FC<any> = ({
             <Text as="h1" fontWeight={700} fontSize="96px">
               {isPlaylist && playlistData
                 ? playlistData.name
-                : artistData?.profile?.name || userData?.name || username}
+                : artistData?.profile?.name || userData?.username || username}
             </Text>
             <Stack direction="row">
               {artistData?.stats ? (
                 <Stack direction="row">
-                  <Text pr={1}>{getNumberFormat(artistData.stats.monthlyListeners)}</Text>
+                  <Text pr={1}>
+                    {getNumberFormat(artistData.stats.monthlyListeners)}
+                  </Text>
                   <Text>monthly listeners</Text>
                 </Stack>
               ) : (
@@ -114,7 +126,11 @@ const UserBanner: React.FC<any> = ({
                     {isPlaylist && playlistData ? (
                       <>{playlistData.followers.total} Likes</>
                     ) : (
-                      <>{userData?.total_public_playlists_count || totalPublicPlaylistsCount} Public Playlists</>
+                      <>
+                        {userData?.totalPublicPlaylistsCount ||
+                          totalPublicPlaylistsCount}{" "}
+                        Public Playlists
+                      </>
                     )}
                   </Text>
                   <Text
@@ -128,7 +144,9 @@ const UserBanner: React.FC<any> = ({
                     {isPlaylist && playlistData ? (
                       <>{playlistData.tracks.total} songs</>
                     ) : (
-                      <>{userData?.following_count || followersCount} Followers</>
+                      <>
+                        {userData?.followingCount || followersCount} Followers
+                      </>
                     )}
                   </Text>
                   <Text
@@ -139,7 +157,7 @@ const UserBanner: React.FC<any> = ({
                       fontWeight: 700,
                     }}
                   >
-                    {userData?.followers_count || followingCount} Following
+                    {userData?.followersCount || followingCount} Following
                   </Text>
                 </>
               )}

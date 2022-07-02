@@ -7,16 +7,17 @@ import {
   useTransform,
 } from "framer-motion";
 import { clamp } from "../../utils";
+import { SongProps } from "../PlayerControls";
 
-const min = 0;
-const max = 30;
-const handleSize = 12;
+const min: number = 0;
+const max: number = 30;
+const handleSize: number = 12;
 
-const PlayerSlider: React.FC<any> = ({ songInfo }) => {
-  const [value, setValue] = useState(0);
-  const constraintsRef = useRef<any>();
-  const handleRef = useRef<any>();
-  const progressBarRef = useRef<any>();
+const PlayerSlider: React.FC<{ songInfo: SongProps }> = ({ songInfo }) => {
+  const [value, setValue] = useState<number>(0);
+  const constraintsRef = useRef(null);
+  const handleRef = useRef(null);
+  const progressBarRef = useRef(null);
   const handleX = useMotionValue(0);
   const progress = useTransform(handleX, (v) => v + handleSize / 2);
   const background: any = useMotionTemplate`linear-gradient(90deg, #1db954 ${progress}px, hsla(0,0%,100%,0.3) 0)`;
@@ -37,7 +38,7 @@ const PlayerSlider: React.FC<any> = ({ songInfo }) => {
     handleX.set(newProgress * progressBarBounds.width);
   }, [handleX, value, songInfo]);
 
-  const handleOnPointerProgressBar = (e: any) => {
+  const handleOnPointerProgressBar = (e: React.MouseEvent<HTMLDivElement>) => {
     const { left, width } = progressBarRef.current.getBoundingClientRect();
     const position = e.pageX - left;
     const newProgress = position / width;

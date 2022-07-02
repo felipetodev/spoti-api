@@ -4,14 +4,28 @@ import PlayButton from "../PlayButton";
 import NoImage from "../NoImage";
 import Link from "next/link";
 
-const cardRouting = (route: string, uri: string) => {
-  const id = uri?.split(":")[2];
-  return route === "Artist"
-    ? `/artist/${id}`
-    : `/playlist/${id}`
+interface Props {
+  name: string;
+  artist?: string;
+  owner?: string;
+  image: string;
+  uri?: string;
+  albumYear?: React.ReactNode;
 }
 
-const Card: React.FC<any> = ({ name, artist, owner, image, uri, albumYear }) => {
+const cardRouting = (route: string, uri: string) => {
+  const id = uri?.split(":")[2];
+  return route === "Artist" ? `/artist/${id}` : `/playlist/${id}`;
+};
+
+const Card: React.FC<Props> = ({
+  name,
+  artist,
+  owner,
+  image,
+  uri,
+  albumYear,
+}) => {
   return (
     <Link href={cardRouting(artist, uri)}>
       <a>

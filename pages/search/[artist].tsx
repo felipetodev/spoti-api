@@ -4,8 +4,9 @@ import Card from "../../components/Card";
 import CardShelf from "../../components/CardShelf";
 import api from "../../search/api";
 import Link from "next/link";
+import { Artist, Artists, GlobalResponse } from "../../search/types";
 
-const SearchArtist: React.FC<any> = ({
+const SearchArtist: React.FC<GlobalResponse> = ({
   topResults,
   artists,
   artist,
@@ -13,10 +14,10 @@ const SearchArtist: React.FC<any> = ({
   albums,
   users,
 }) => {
-  const topArtists = useMemo(() => {
-    let top5: any = [];
+  const topArtists = useMemo<Artist[]>(() => {
+    let top5 = [];
     if (!artists) return [];
-    artists.forEach((song: any, idx: number) => {
+    artists.forEach((song: Artists, idx: number) => {
       if (idx < 5) {
         top5.push(song.data);
       }
@@ -90,12 +91,12 @@ const SearchArtist: React.FC<any> = ({
           Featuring {artist?.profile?.name}
         </Text>
         <Stack direction="row" gap={4}>
-          {topResults?.map(({ data }: any) => (
+          {topResults?.map(({ data }) => (
             <Card
               key={data?.uri}
               uri={data?.uri}
               owner={data?.owner?.name}
-              description={data?.description}
+              // description={data?.description}
               name={data?.name}
               image={data.images?.items[0]?.sources[0]?.url}
             />
@@ -106,13 +107,11 @@ const SearchArtist: React.FC<any> = ({
           Artists
         </Text>
         <Stack direction="row" gap={4}>
-          {topArtists?.map((artist: any) => (
+          {topArtists?.map((artist) => (
             <Card
               key={artist?.uri}
               uri={artist?.uri}
               artist="Artist"
-              owner={artist?.owner?.name}
-              description={artist?.description}
               name={artist?.profile?.name}
               image={artist?.visuals?.avatarImage?.sources[0]?.url}
             />
@@ -126,7 +125,7 @@ const SearchArtist: React.FC<any> = ({
 
 export default SearchArtist;
 
-export async function getServerSideProps({ query }: any) {
+export async function getServerSideProps({ query }) {
   const { artist, artists, users, albums, tracks, topResults } =
     await api.getGlobalSearch(query.artist);
 

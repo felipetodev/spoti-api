@@ -3,8 +3,14 @@ import { Box, Image, Stack, Text } from "@chakra-ui/react";
 import SearchTrackResults from "../SearchTrackResults";
 import PlayButton from "../PlayButton";
 import Link from "next/link";
+import { Artist } from "../../search/types";
 
-const ArtistCard: React.FC<any> = ({ artist }) => {
+interface Props {
+  artist: Artist;
+  tracks?: any;
+}
+
+const ArtistCard: React.FC<Props> = ({ artist }) => {
   return (
     <Stack width="100%" maxWidth={420}>
       <Text fontSize={24} fontWeight={700}>
@@ -65,7 +71,7 @@ const ArtistCard: React.FC<any> = ({ artist }) => {
   );
 };
 
-const CardShelf: React.FC<any> = ({ artist, tracks }) => {
+const CardShelf: React.FC<Props> = ({ artist, tracks }) => {
   return (
     <Stack direction={{ sm: "column", md: "row" }} gap={6}>
       <ArtistCard artist={artist} />

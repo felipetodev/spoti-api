@@ -172,7 +172,7 @@ const SearchTrackResults: React.FC<any> = ({ tracks }) => {
         </Text>
         <Text fontSize="sm">SEE ALL</Text>
       </Stack>
-      {topSongs.map((songs: any, idx: any) => (
+      {topSongs.map((songs: any, idx: number) => (
         <TrackListRow
           key={songs?.id}
           isActive={songs?.id === trackData?.id}

@@ -1,11 +1,11 @@
 import { options } from "../utils";
 
 const getTop5 = (data: any) => {
-  return data.filter((_: any, idx: any) => idx < 5);
+  return data.filter((_: any, idx: number) => idx < 5);
 };
 
 export default {
-  getArtistOverview: async (artistId: any) => {
+  getArtistOverview: async (artistId: string) => {
     if (!artistId) return {};
     try {
       const response = await fetch(

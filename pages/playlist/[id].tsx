@@ -4,11 +4,21 @@ import api from "../../playlist/api";
 import UserBanner from "../../components/UserBanner";
 import { TrackListRow } from "../../components/SearchTrackResults";
 import { usePlayer } from "../../player/hooks";
+import {
+  PlaylistResponse,
+  PlaylistTrackResponse,
+  PlaylistTrack,
+} from "../../playlist/types";
 
-const PlaylistPage: React.FC<any> = ({ data, playlist }) => {
-  const { trackData, updatePlayer, statusPlayer }: any = usePlayer();
+interface Props {
+  data: PlaylistResponse;
+  playlist: PlaylistTrackResponse[];
+}
 
-  const onPlayTrack = (track: any) => {
+const PlaylistPage: React.FC<Props> = ({ data, playlist }) => {
+  const { trackData, updatePlayer, statusPlayer } = usePlayer();
+
+  const onPlayTrack = (track: PlaylistTrack) => {
     updatePlayer(track.id);
     statusPlayer(true);
   };
@@ -49,17 +59,17 @@ const PlaylistPage: React.FC<any> = ({ data, playlist }) => {
           </Stack>
         </Stack>
 
-        {playlist?.map((track: any, idx: any) => (
+        {playlist?.map(({ track }, idx: number) => (
           <TrackListRow
             isPlaylist
-            key={track?.track?.id}
-            isActive={track?.track?.id === trackData?.id}
-            onDoubleClick={() => onPlayTrack(track.track)}
-            song={track?.track?.name}
-            artists={track.track.artists}
-            covertArt={track?.track?.album?.images[2]?.url}
-            duration={track?.track?.duration_ms}
-            dateAdded={track?.added_at}
+            key={track?.id}
+            isActive={track?.id === trackData?.id}
+            onDoubleClick={() => onPlayTrack(track)}
+            song={track?.name}
+            artists={track.artists}
+            covertArt={track?.album?.images[2]?.url}
+            duration={track?.duration_ms}
+            dateAdded={track?.added_at} // unnecessary (?)
             index={idx + 1}
           />
         ))}
@@ -70,9 +80,11 @@ const PlaylistPage: React.FC<any> = ({ data, playlist }) => {
 
 export default PlaylistPage;
 
-export async function getServerSideProps({ query }: any) {
-  const playlistResponse = await api.getPlaylist(query.id);
-  const trackResponse = await api.getPlaylistTrack(query.id);
+export async function getServerSideProps({ query }) {
+  const playlistResponse: PlaylistResponse = await api.getPlaylist(query.id);
+  const trackResponse: PlaylistTrackResponse = await api.getPlaylistTrack(
+    query.id
+  );
 
   return {
     props: {

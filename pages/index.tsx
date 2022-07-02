@@ -4,14 +4,19 @@ import { Container, Stack, Text } from "@chakra-ui/react";
 import Card from "../components/Card";
 import { useUser } from "../user/hooks";
 import UserBanner from "../components/UserBanner";
-import api from "../user/api"
+import api from "../user/api";
+import { Context } from "../user/context";
 
-const Home: NextPage = ({ initialData }: any) => {
-  const { updateUser }: any = useUser()
+interface Props {
+  initialData: Context;
+}
+
+const Home: NextPage = ({ initialData }: Props) => {
+  const { updateUser } = useUser();
 
   useEffect(() => {
-    updateUser(initialData)
-  }, [initialData])
+    updateUser(initialData);
+  }, [initialData]);
 
   return (
     <Stack minHeight="full" w="full">
@@ -24,7 +29,7 @@ const Home: NextPage = ({ initialData }: any) => {
           Recently played artists
         </Text>
         <Stack direction="row" gap={4}>
-          {initialData.recently_played_artists?.map((data: any) => (
+          {initialData.recentlyPlayedArtists?.map((data) => (
             <Card
               key={data?.name}
               artist="Artist"
@@ -44,7 +49,7 @@ export default Home;
 
 export async function getStaticProps() {
   const user = "goncy-ar";
-  const data = await api.getUserProfile(user)
+  const data = await api.getUserProfile(user);
 
   return {
     props: {

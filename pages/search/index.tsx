@@ -23,17 +23,17 @@ const SearchPage: React.FC<any> = ({ data }) => {
         minWidth={600}
         pb={160}
       >
-        {data?.map((chart: any) => (
+        {data?.map((chart) => (
           <Stack
-            key={chart?.name}
+            key={chart.name}
             position="relative"
             borderRadius="md"
             overflow="hidden"
           >
             <Image
               objectFit="cover"
-              src={chart?.images[0]?.url}
-              alt={chart?.name}
+              src={chart.images[0].url}
+              alt={chart.name}
             />
             <Text
               position="absolute"
@@ -42,7 +42,7 @@ const SearchPage: React.FC<any> = ({ data }) => {
               p={2}
               top={0}
             >
-              {chart?.name}
+              {chart.name}
             </Text>
           </Stack>
         ))}

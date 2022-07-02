@@ -1,20 +1,32 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { PlaylistTrack } from "../playlist/types";
+
+interface Context {
+  trackData: PlaylistTrack;
+  playing: boolean;
+  updatePlayer: (e: string) => void;
+  statusPlayer: (e: boolean) => void;
+}
 
 const defaultValues = {
-  trackData: [],
+  trackData: null,
   playing: false,
   updatePlayer: () => {},
   statusPlayer: () => {},
 };
 
-const PlayerContext = React.createContext(defaultValues);
+const PlayerContext = React.createContext<Context>(defaultValues);
 
-const PlayerProvider = ({ children }: any) => {
-  const [trackUri, setTrackUri] = useState("");
-  const [playing, setPlaying] = useState(false);
-  const [trackData, setTrackData] = useState(null);
+interface Props {
+  children: React.ReactNode
+}
 
-  const updatePlayer = (value: any) => {
+const PlayerProvider: React.FC<Props> = ({ children }) => {
+  const [trackUri, setTrackUri] = useState<string>("");
+  const [playing, setPlaying] = useState<boolean>(false);
+  const [trackData, setTrackData] = useState<PlaylistTrack | null>(defaultValues.trackData);
+
+  const updatePlayer = (value: string) => {
     if (!value) return "";
     setTrackUri(value);
   };
@@ -24,21 +36,21 @@ const PlayerProvider = ({ children }: any) => {
   };
 
   const getTrackInformation = async () => {
-    if (!trackUri) return null
+    if (!trackUri) return null;
     try {
       await fetch(`/api/track/${trackUri}`)
-        .then(res => res.json())
-        .then(([data]) => setTrackData(data))
+        .then((res) => res.json())
+        .then(([data]) => setTrackData(data));
     } catch (e) {
-      console.error(`Something went wrong fetching song id ${trackUri}`)
+      console.error(`Something went wrong fetching song id ${trackUri}`);
     }
   };
 
   useEffect(() => {
-    getTrackInformation()
-  }, [trackUri])
+    getTrackInformation();
+  }, [trackUri]);
 
-  const providerValue: any = useMemo(() => {
+  const providerValue = useMemo<Context>(() => {
     return {
       trackData,
       playing,

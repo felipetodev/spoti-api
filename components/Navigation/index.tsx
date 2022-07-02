@@ -1,5 +1,5 @@
 import React from "react";
-import { ring, Stack, Text } from "@chakra-ui/react";
+import { Stack, Text } from "@chakra-ui/react";
 import SpotifyLogo from "../Logo";
 import {
   CollectionIcon,
@@ -11,8 +11,8 @@ import { LikeHearthIcon } from "../SearchTrackResults";
 import Link from "next/link";
 import { useUser } from "../../user/hooks";
 
-const Navigation: React.FC<any> = () => {
-  const { publicPlaylists }: any = useUser();
+const Navigation: React.FC = () => {
+  const { publicPlaylists } = useUser();
 
   return (
     <Stack position="relative" zIndex={50} minWidth={60} h="full" top={0}>
@@ -99,7 +99,7 @@ const Navigation: React.FC<any> = () => {
             },
           }}
         >
-          {publicPlaylists?.map((playlist: any) => (
+          {publicPlaylists?.map((playlist) => (
             <Link
               href={`/playlist/${playlist?.uri.split(":")[2]}`}
               key={playlist?.name}
@@ -118,7 +118,7 @@ const Navigation: React.FC<any> = () => {
               </a>
             </Link>
           ))}
-          {publicPlaylists?.map((playlist: any) => (
+          {publicPlaylists?.map((playlist) => (
             <Link
               href={`/playlist/${playlist?.uri.split(":")[2]}`}
               key={playlist?.name}

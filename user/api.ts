@@ -1,4 +1,5 @@
 import { options } from "../utils";
+import { ResponseProfile } from "./types";
 // import playlistApi from "../playlist/api";
 
 export default {
@@ -10,10 +11,20 @@ export default {
         options
       );
       console.warn({ statusApi: response?.statusText })
-      const { recently_played_artists, ...restOfData } = await response.json();
+      const { recently_played_artists, color, uri, ...restOfData }: ResponseProfile = await response.json();
       const topRecentlyPlayed =
         recently_played_artists?.filter((_: any, idx: any) => idx < 5) ?? [];
-      return { ...restOfData, recently_played_artists: topRecentlyPlayed };
+      return {
+        username: restOfData.name,
+        userImage: restOfData.image_url,
+        publicPlaylists: restOfData.public_playlists,
+        recentlyPlayedArtists: topRecentlyPlayed,
+        totalPublicPlaylistsCount: restOfData.total_public_playlists_count,
+        followingCount: restOfData.following_count,
+        followersCount: restOfData.followers_count,
+        color,
+        uri,
+      };
     } catch (e) {
       console.error(e);
       return {};

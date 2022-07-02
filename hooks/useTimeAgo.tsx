@@ -7,8 +7,8 @@ const DATE_UNITS = {
   second: 1,
 };
 
-const getSecondsDiff = (timestamp: any) => (Date.now() - timestamp) / 1000;
-const getUnitAndValueDate = (secondsElapsed: any) => {
+const getSecondsDiff = (timestamp) => (Date.now() - timestamp) / 1000;
+const getUnitAndValueDate = (secondsElapsed) => {
   for (const [unit, secondsInUnit] of Object.entries(DATE_UNITS)) {
     if (secondsElapsed >= secondsInUnit || unit === "second") {
       const value = Math.floor(secondsElapsed / secondsInUnit) * -1;
@@ -17,7 +17,7 @@ const getUnitAndValueDate = (secondsElapsed: any) => {
   }
 };
 
-const getTimeAgo = (timestamp: any, locale: any) => {
+const getTimeAgo = (timestamp, locale) => {
   const rtf = new Intl.RelativeTimeFormat(locale);
 
   const secondsElapsed = getSecondsDiff(timestamp);
@@ -25,7 +25,7 @@ const getTimeAgo = (timestamp: any, locale: any) => {
   return rtf.format(value, unit);
 };
 
-export default function TimeAgo({ timestamp, ...props }: any) {
+export default function TimeAgo({ timestamp, ...props }) {
   const locale = "en-US";
   const timeago = getTimeAgo(timestamp, locale);
 

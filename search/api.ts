@@ -1,7 +1,7 @@
 import { options } from "../utils";
 
 export default {
-  getGlobalSearch: async (query: any) => {
+  getGlobalSearch: async (query: string) => {
     try {
       if (!query) return {};
       const response = await fetch(

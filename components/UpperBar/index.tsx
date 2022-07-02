@@ -29,19 +29,22 @@ export const ArrowButton: React.FC<any> = (props) => (
 );
 
 const UpperBar: React.FC<any> = ({ router }) => {
-  const inputRef = useRef<any>();
+  const inputRef = useRef(null);
   const nextRouter = useRouter();
 
-  const { username, userImage }: any = useUser()
+  const { username, userImage } = useUser();
 
-  const handleInput = debounce(({ target }: any) => {
-    nextRouter.push(`/search/${target.value}`);
-  }, 300);
+  const handleInput = debounce(
+    ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+      nextRouter.push(`/search/${target.value}`);
+    },
+    300
+  );
 
   const handleSearchDelete = () => {
-    nextRouter.replace("/search")
-    inputRef.current.value = ""
-  }
+    nextRouter.replace("/search");
+    inputRef.current.value = "";
+  };
 
   return (
     <Stack position="relative" zIndex={50}>
@@ -61,7 +64,7 @@ const UpperBar: React.FC<any> = ({ router }) => {
           <ArrowButton />
           <ArrowButton transform="rotate(180deg)" />
           {router?.state?.pathname.includes("/search") && (
-            <FormControl as="form" onSubmit={e => e.preventDefault()}>
+            <FormControl as="form" onSubmit={(e) => e.preventDefault()}>
               <InputGroup>
                 <InputLeftElement pointerEvents="none">
                   <SearchIcon fill="#000" />

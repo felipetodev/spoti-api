@@ -1,5 +1,5 @@
-import { Stack } from "@chakra-ui/react";
 import React from "react";
+import { Stack } from "@chakra-ui/react";
 
 export const ShuffleIcon: React.FC<any> = () => (
   <svg role="img" height="16" width="16" fill="#fff" viewBox="0 0 16 16">
