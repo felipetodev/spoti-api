@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { GetServerSideProps } from "next";
 import { Box, Image, Container, Stack, Text } from "@chakra-ui/react";
 import Card from "../../components/Card";
 import CardShelf from "../../components/CardShelf";
@@ -125,9 +126,12 @@ const SearchArtist: React.FC<GlobalResponse> = ({
 
 export default SearchArtist;
 
-export async function getServerSideProps({ query }) {
+export const getServerSideProps: GetServerSideProps<
+  GlobalResponse,
+  { artist: string }
+> = async ({ params }) => {
   const { artist, artists, users, albums, tracks, topResults } =
-    await api.getGlobalSearch(query.artist);
+    await api.getGlobalSearch(params.artist);
 
   return {
     props: {
@@ -139,4 +143,4 @@ export async function getServerSideProps({ query }) {
       topResults,
     },
   };
-}
+};

@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import { useEffect } from "react";
 import { Container, Stack, Text } from "@chakra-ui/react";
 import Card from "../components/Card";
@@ -47,7 +47,7 @@ const Home: NextPage = ({ initialData }: Props) => {
 
 export default Home;
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const user = "goncy-ar";
   const data = await api.getUserProfile(user);
 

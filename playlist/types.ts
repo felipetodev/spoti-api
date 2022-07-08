@@ -1,18 +1,18 @@
 type Images = {
-  height: number;
-  url: string;
-  width: number;
+  height: number,
+  url: string,
+  width: number,
 };
 
 type Owner = {
-  display_name: string;
-  id: string;
-  uri: string;
+  display_name: string,
+  id: string,
+  uri: string,
 };
 
 type Track = {
-  duration_ms: number;
-  type: string;
+  duration_ms: number,
+  type: string,
 };
 
 interface TrackItem {
@@ -41,10 +41,10 @@ export interface PlaylistResponse {
 }
 
 type AddedBy = {
-  id: Owner["id"];
-  type: string;
-  uri: Owner["uri"];
-  external_urls?: any;
+  id: Owner["id"],
+  type: string,
+  uri: Owner["uri"],
+  external_urls?: any,
 };
 
 type Artist = {
@@ -60,15 +60,15 @@ type Duration = {
 }
 
 export type PlaylistTrack = {
-  id: string;
-  name: string;
-  artists: Artist[];
-  album: any;
-  duration_ms?: number;
-  duration?: Duration;
-  added_at: string;
-  playcount?: number;
-  preview_url?: string;
+  id: string,
+  name: string,
+  artists: Artist[],
+  album: any,
+  duration_ms?: number,
+  duration?: Duration,
+  added_at: string,
+  playcount?: number,
+  preview_url?: string,
 };
 
 export interface PlaylistTrackResponse {

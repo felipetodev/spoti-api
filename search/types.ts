@@ -1,19 +1,19 @@
 type Biography = {
   text: string,
-}
+};
 
 export type Profile = {
   name: string,
   verified?: boolean | undefined,
   biography?: Biography | undefined,
-}
+};
 
 export type Artist = {
   id?: string,
   profile: Profile,
   uri: string,
   visuals?: any,
-}
+};
 
 export type TopResult = {
   description: string,
@@ -22,12 +22,12 @@ export type TopResult = {
   name: string,
   owner: Profile,
   uri: string,
-}
+};
 
 type UserImage = {
   largeImageUrl: string,
-  smallImageUrl: string
-}
+  smallImageUrl: string,
+};
 
 type User = {
   displayName: string,
@@ -35,7 +35,7 @@ type User = {
   image: UserImage,
   uri: string,
   username: string,
-}
+};
 
 type Track = {
   albumOfTrack: Object,
@@ -45,23 +45,23 @@ type Track = {
   id: string,
   name: string,
   playability: Object,
-  uri: string
-}
+  uri: string,
+};
 
 export interface Artists {
-  data: Artist
+  data: Artist;
 }
 
 interface TopResults {
-  data: TopResult
+  data: TopResult;
 }
 
 interface Users {
-  data: User
+  data: User;
 }
 
 interface Tracks {
-  data: Track
+  data: Track;
 }
 
 export interface Album {
@@ -78,17 +78,17 @@ interface AlbumItems {
 }
 
 type Albums = {
-  items: AlbumItems | Album[],
-  totalCount: number,
-}
+  items: AlbumItems | Album[];
+  totalCount: number;
+};
 
 export interface AppearsOn extends Albums {
-  releases: Albums
+  releases: Albums;
 }
 
 export interface GlobalResponse {
   artist?: Artist;
-  artists?: Artists[],
+  artists?: Artists[];
   users: Users[];
   albums: Albums;
   tracks: Tracks[];

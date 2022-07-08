@@ -1,13 +1,13 @@
 export type RecentlyPlayedArtists = {
-  name: string;
-  uri: string;
-  image_url: string;
+  name: string,
+  uri: string,
+  image_url: string,
 };
 
 export type PublicPlaylists = {
-  image_url: string;
-  name: string;
-  uri: string;
+  image_url: string,
+  name: string,
+  uri: string,
 };
 
 export interface ResponseProfile {

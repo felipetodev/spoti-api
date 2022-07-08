@@ -1,4 +1,5 @@
 import React from "react";
+import { GetServerSideProps } from "next";
 import { Container, Stack, Text } from "@chakra-ui/react";
 import Card from "../../components/Card";
 import UserBanner from "../../components/UserBanner";
@@ -35,12 +36,15 @@ const UserProfilePage: React.FC<Props> = ({ userData }) => {
 
 export default UserProfilePage;
 
-export async function getServerSideProps({ query }) {
-  const userData = await api.getUserProfile(query.user);
+export const getServerSideProps: GetServerSideProps<
+  any,
+  { user: string }
+> = async ({ params }) => {
+  const userData = await api.getUserProfile(params.user);
 
   return {
     props: {
       userData,
     },
   };
-}
+};

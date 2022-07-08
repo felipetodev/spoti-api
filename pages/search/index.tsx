@@ -1,4 +1,5 @@
 import React from "react";
+import { GetStaticProps } from "next";
 import { Image, Stack, Text } from "@chakra-ui/react";
 
 const SearchPage: React.FC<any> = ({ data }) => {
@@ -53,7 +54,7 @@ const SearchPage: React.FC<any> = ({ data }) => {
 
 export default SearchPage;
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const chartsMock = require("../../charts/chartsMock.json");
   return {
     props: {

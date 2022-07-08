@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { GetServerSideProps } from "next";
 import { Image, Stack, Text } from "@chakra-ui/react";
 import api from "../../artists/api";
 import { TrackListRow } from "../../components/SearchTrackResults";
@@ -16,13 +17,13 @@ import {
 import { PlaylistTrack, PlaylistTrackResponse } from "../../playlist/types";
 
 type ArtistStats = {
-  followers: number;
-  monthlyListeners: number;
-  worldRank: number;
+  followers: number,
+  monthlyListeners: number,
+  worldRank: number,
 };
 
 export type IArtist = {
-  stats: ArtistStats;
+  stats: ArtistStats,
 };
 interface Props {
   artist: IArtist;
@@ -244,7 +245,10 @@ const ArtistPage: React.FC<Props> = ({
 
 export default ArtistPage;
 
-export async function getServerSideProps({ query }) {
+export const getServerSideProps: GetServerSideProps<
+  Props,
+  { id: string }
+> = async ({ params }) => {
   const {
     artist,
     discography,
@@ -254,7 +258,7 @@ export async function getServerSideProps({ query }) {
     relatedArtists,
     discoveredOn,
     visuals,
-  } = await api.getArtistOverview(query.id);
+  } = await api.getArtistOverview(params.id);
 
   return {
     props: {
@@ -268,4 +272,4 @@ export async function getServerSideProps({ query }) {
       visuals,
     },
   };
-}
+};

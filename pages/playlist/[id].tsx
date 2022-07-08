@@ -1,4 +1,5 @@
 import React from "react";
+import { GetServerSideProps } from "next";
 import { Stack, Text } from "@chakra-ui/react";
 import api from "../../playlist/api";
 import UserBanner from "../../components/UserBanner";
@@ -80,10 +81,13 @@ const PlaylistPage: React.FC<Props> = ({ data, playlist }) => {
 
 export default PlaylistPage;
 
-export async function getServerSideProps({ query }) {
-  const playlistResponse: PlaylistResponse = await api.getPlaylist(query.id);
+export const getServerSideProps: GetServerSideProps<
+  any,
+  { id: string }
+> = async ({ params }) => {
+  const playlistResponse: PlaylistResponse = await api.getPlaylist(params.id);
   const trackResponse: PlaylistTrackResponse = await api.getPlaylistTrack(
-    query.id
+    params.id
   );
 
   return {
@@ -92,4 +96,4 @@ export async function getServerSideProps({ query }) {
       playlist: trackResponse,
     },
   };
-}
+};
